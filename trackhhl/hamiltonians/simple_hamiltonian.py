@@ -5,6 +5,19 @@ from scipy.sparse import coo_matrix, eye
 from scipy.sparse.linalg import cg
 import numpy as np
 from collections import namedtuple
+from qiskit.algorithms.linear_solvers import HHL
+from qiskit.circuit import QuantumCircuit, QuantumRegister
+from qiskit.quantum_info import Statevector
+import qiskit_aer
+def upscale_pow2(A,b):
+    m = A.shape[0]
+    d = int(2**np.ceil(np.log2(m)) - m)
+    if d > 0:
+        A_tilde = np.block([[A, np.zeros((m, d),dtype=np.float64)],[np.zeros((d, m),dtype=np.float64), np.eye(d,dtype=np.float64)]])
+        b_tilde = np.block([b,b[:d]])
+        return A_tilde, b_tilde
+    else:
+        return A, b
 
 class SimpleHamiltonian(Hamiltonian):
     def __init__(self, epsilon, gamma, delta):
@@ -73,6 +86,36 @@ class SimpleHamiltonian(Hamiltonian):
         solution, _ = cg(self.A, self.b, atol=0)
         return solution
     
+    def solve_hhl(self, epsilon=0.01, circuit_only=False):
+        if self.A is None:
+            raise Exception("Not initialised")
+        # Construct the circuit
+        A = self.A.todense()
+        b = self.b
+        
+        A, b = upscale_pow2(A,b)
+        
+        b_circuit = QuantumCircuit(QuantumRegister(int(np.log2(len(b)))), name="init")
+        for i in range(int(np.log2(len(b)))):
+            b_circuit.h(i)
+        
+        hhl_solver = HHL(epsilon=epsilon)
+        circuit = hhl_solver.construct_circuit(A, b_circuit, neg_vals=False)
+        if circuit_only: return circuit
+        
+        # Get the final state vector
+        state_vector = Statevector(circuit)
+        solution_norm = hhl_solver._calculate_norm(circuit)
+        
+        # Pick the correct slice and renormalise it back
+        post_select_qubit = int(np.log2(len(state_vector.data)))-1
+        solution_len = len(b)
+        base = 1 << post_select_qubit
+        solution_vector = state_vector.data[base : base+solution_len].real
+        solution_vector = solution_vector/np.linalg.norm(solution_vector)*solution_norm*np.linalg.norm(b)
+        
+        
+        return solution_vector[:len(self.b)]
 
 
     def evaluate(self, solution):
