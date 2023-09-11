@@ -119,5 +119,16 @@ class SimpleHamiltonian(Hamiltonian):
 
 
     def evaluate(self, solution):
-        raise NotImplemented
+        if self.A is None:
+            raise Exception("Not initialised")
+        
+        if isinstance(solution, list):
+            sol = np.array([solution, None])
+        elif isinstance(solution, np.ndarray):
+            if solution.ndim == 1:
+                sol = solution[..., None]
+            else: sol = solution
+            
+            
+        return -0.5 * sol.T @ self.A @ sol + self.b.dot(sol)
         
