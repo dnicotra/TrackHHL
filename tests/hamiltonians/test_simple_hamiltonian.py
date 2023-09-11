@@ -8,7 +8,7 @@ def test_SimpleHamiltonian_Classical():
     N_DETECTORS = 25
     N_PARTICLES = 50
     detector = SimpleDetectorGeometry([i for i in range(N_DETECTORS)], [10000 for i in range(N_DETECTORS)], [10000 for i in range(N_DETECTORS)], [i+1 for i in range(N_DETECTORS)])
-    generator = SimpleGenerator(detector,theta_max=np.pi/3)
+    generator = SimpleGenerator(detector,theta_max=np.pi/3,rng=np.random.default_rng(0))
     
     event = generator.generate_event(N_PARTICLES)
     
@@ -31,7 +31,10 @@ def test_SimpleHamiltonian_Classical():
     missed = (discretised_solution != truth_solution).sum()
     print(sol)
     assert missed < .01*len(sol)
+    
+    result = ham.evaluate(sol).reshape([])
 
+    assert np.allclose(result,10378.26496702)
 
 def test_SimpleHamiltonian_Quantum():
     # Generate a test event
