@@ -9,6 +9,9 @@ readme = "README.md"
 python = "~3.11"
 scipy = "1.11.1"
 qiskit = "0.42.1"
+vispy = "^0.14.0"
+velopix-tracking = {path = "../velopix_tracking/velopix_tracking"}
+pyqt6 = "^6.5.2"
 
 
 [tool.poetry.group.dev.dependencies]
