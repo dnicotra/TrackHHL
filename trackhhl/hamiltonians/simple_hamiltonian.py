@@ -1,14 +1,13 @@
 from trackhhl.event_model.event_model import Event, Segment
 from trackhhl.hamiltonians.hamiltonian import Hamiltonian
 from itertools import product, count
-from scipy.sparse import coo_matrix, eye
+from scipy.sparse import eye
 from scipy.sparse.linalg import cg
 import numpy as np
-from collections import namedtuple
 from qiskit.algorithms.linear_solvers import HHL
 from qiskit.circuit import QuantumCircuit, QuantumRegister
 from qiskit.quantum_info import Statevector
-import qiskit_aer
+
 def upscale_pow2(A,b):
     m = A.shape[0]
     d = int(2**np.ceil(np.log2(m)) - m)

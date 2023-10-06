@@ -74,7 +74,9 @@ class Segment:
     
     
     def to_vect(self):
-        return (self.hit_to.x - self.hit_from.x, self.hit_to.y - self.hit_from.y, self.hit_to.z - self.hit_from.z)
+        return (self.hit_to.x - self.hit_from.x, 
+                self.hit_to.y - self.hit_from.y, 
+                self.hit_to.z - self.hit_from.z)
     
     
     def __mul__(self, __value):
