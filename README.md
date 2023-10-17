@@ -4,6 +4,24 @@ This repository contains an implementation of a track reconstruction algorithm u
 
 [![DOI](https://zenodo.org/badge/663959820.svg)](https://zenodo.org/badge/latestdoi/663959820)
 
+
+# Installation
+
+This project uses [Poetry](https://python-poetry.org/) to manage dependencies. After installing it, clone this repo and install the dependencies in a virtual environment using Poetry.
+```console
+git clone https://github.com/dnicotra/TrackHHL.git
+cd TrackHHL
+poetry install
+```
+You can then run your own script with
+```console
+poetry run python your_script.py
+```
+or activate the environment in your shell with
+```console
+poetry shell
+```
+
 # Description
 
 - `notebooks\`: contains a few IPython notebooks that show the usage of the code
