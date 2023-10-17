@@ -1,16 +1,15 @@
 [tool.poetry]
 name = "trackhhl"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["Davide Nicotra <davide.nicotra@cern.ch>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "~3.11"
-scipy = "1.11.1"
-qiskit = "0.42.1"
+python = ">=3.9, <3.12"
+qiskit = "^0.44.2"
 mplhep = "^0.3.30"
-
+quantum-linear-solvers = "^0.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"

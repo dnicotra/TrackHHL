@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+        os: [ubuntu-latest]
+        poetry-version: ["1.6.1"]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Check out project
+      uses: actions/checkout@v3
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+      # see details (matrix, python-version, python-version-file, etc.)
+      # https://github.com/actions/setup-python
+    - name: Install poetry
+      uses: abatilo/actions-poetry@v2
+      with:
+        poetry-version: ${{ matrix.poetry-version }}
+    
+    - name: Install the project dependencies
+      run: poetry install
+      
+    - name: Run the automated tests (ignore deprecation errors )
+      run: poetry run pytest --verbose tests/

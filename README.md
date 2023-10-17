@@ -2,7 +2,8 @@
 
 This repository contains an implementation of a track reconstruction algorithm using the HHL quantum algorithm, described in [this article](https://arxiv.org/abs/2308.00619).
 
-[![DOI](https://zenodo.org/badge/663959820.svg)](https://zenodo.org/badge/latestdoi/663959820)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8192122.svg)](https://zenodo.org/doi/10.5281/zenodo.8192122)
+
 
 
 # Installation
