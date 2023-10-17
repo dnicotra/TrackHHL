@@ -9,6 +9,7 @@ readme = "README.md"
 python = "~3.11"
 scipy = "1.11.1"
 qiskit = "0.42.1"
+mplhep = "^0.3.30"
 
 
 [tool.poetry.group.dev.dependencies]
