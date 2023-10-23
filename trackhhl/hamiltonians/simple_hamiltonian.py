@@ -4,7 +4,7 @@ from itertools import product, count
 from scipy.sparse import eye
 from scipy.sparse.linalg import cg
 import numpy as np
-from qiskit.algorithms.linear_solvers import HHL
+from linear_solvers import HHL
 from qiskit.circuit import QuantumCircuit, QuantumRegister
 from qiskit.quantum_info import Statevector
 
