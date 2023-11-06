@@ -94,6 +94,7 @@ class SimpleGenerator:
             global_hits = [hit for sublist in hits_per_module for hit in sublist]
 
             all_events.append(em.Event(modules, tracks, global_hits))
-
+        if n_events == 1:
+            all_events = all_events[0]
         return all_events
             
