@@ -30,13 +30,13 @@ class SimpleGenerator:
     def generate_random_primary_vertices(self, n_events, sigma):
         primary_vertices = []
         for _ in range(n_events):
-            x = self.rng.normal(0, sigma)
-            y = self.rng.normal(0, sigma)
-            z = self.rng.normal(0, sigma)
+            x = self.rng.normal(0, sigma[0])
+            y = self.rng.normal(0, sigma[1])
+            z = self.rng.normal(0, sigma[2])
             primary_vertices.append((x, y, z))
         return primary_vertices
     
-    def generate_event(self, n_particles, n_events=1, sigma=10.0):
+    def generate_event(self, n_particles, n_events=1, sigma=(0,0,0)):
         hit_id_counter = count()
         all_events = []
 
