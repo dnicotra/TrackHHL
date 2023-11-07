@@ -36,15 +36,13 @@ class SimpleGenerator:
             primary_vertices.append((x, y, z))
         return primary_vertices
     
-    def generate_event(self, n_particles, n_events=1, sigma=10.0):
+    def generate_event(self, n_particles, n_events=1, sigma=0):
         hit_id_counter = count()
         all_events = []
 
         for _ in range(n_events):
-            if n_events == 1:
-                primary_vertex = (0,0,0)
-            else:
-                primary_vertex = self.generate_random_primary_vertices(1,sigma)[0]
+
+            primary_vertex = self.generate_random_primary_vertices(1,sigma)[0]
 
             mc_info = []
 
